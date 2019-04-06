@@ -1,0 +1,79 @@
+body{
+  overflow-y: hidden;
+  overflow-x: hidden;
+  background-image: url('https://www.burlingtoncityarts.org/sites/default/files/oakledge-earthclock10-17-07_014_0.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0px -300px;
+}
+#menu{
+  background:linear-gradient( 170deg,blue, mediumblue, navy );
+  height: 30%;
+  width: 99%;
+  border: 5px solid white;
+  border-radius: 10px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  color: white;
+  font-size: 35px;
+  display: flex;
+  align-items: center;
+  font-family: 'Press Start 2P', cursive;
+  padding: 0;
+}
+#hp{
+  margin-left: 100px;
+}
+#health{
+  width: 100%;
+  height: 35px;
+  border: 2px solid white;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+#bar{
+  transition-property: width;
+  display: inline-block;
+  background: linear-gradient(orangered, darkred);
+  width: 100%;
+  height: 35px;
+}
+.menu_item{
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.numbers{
+  /* margin-left: 75px !important; */
+}
+.pointer{
+  animation-duration: .6s;
+  animation-name: point;
+  position: relative;
+  left: 50px;
+  animation-iteration-count: infinite;
+  /* transform: scale(7); */
+  height: 35px;
+  width: 200px;
+  background-image: url("https://vignette.wikia.nocookie.net/finalfantasy/images/4/4c/Cursor.png/revision/latest/fixed-aspect-ratio-down/width/240/height/240?cb=20080419135704&fill=transparent"); 
+  background-size: 275px;
+  background-repeat: no-repeat;
+  background-position: -30px -119px;
+}
+
+@keyframes point{
+  0%{
+    left: 55px;
+  }
+  50%{
+   left: 70px;
+  }
+  100%{
+    left: 55px;
+  }
+}
+
+.hidden{
+  visibility: hidden;
+}
