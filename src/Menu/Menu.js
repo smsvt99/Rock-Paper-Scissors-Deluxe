@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 
 class Menu extends Component {
     componentDidUpdate = () => {
-        this.point();
-        this.set_bar();
+        if (this.props !== 'char_select'){
+            this.point();
+            this.set_bar();
+        }
     }
     componentDidMount = () => {
         if(this.props.view === 'select'){
@@ -39,7 +41,7 @@ class Menu extends Component {
     }
 
     render() {
-        if (this.props.view !== 'view') {
+        if (this.props.view === 'char_select') {
             return null
         } else {
             return (

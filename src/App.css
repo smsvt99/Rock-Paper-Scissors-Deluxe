@@ -108,7 +108,7 @@ body{
   font-family: 'Press Start 2P', cursive;
   color: white;
   width: 80%;
-  height: 80%;
+  /* height: 80%; */
   top: 10%;
   left: 10%;
   font-size: 30px;
@@ -144,7 +144,7 @@ input:focus{
 
 #start{
   font-size: 30px;
-  background: linear-gradient(black, grey);
+  background-color: black;
   border: 2px solid white;
   text-align: center;
   display: block;
@@ -153,6 +153,10 @@ input:focus{
   padding: 10px;
   margin-top: 10%;
   border-radius: 10px;
+  cursor: pointer;
+}
+#start:hover{
+  background-color: blue;
 }
 .container{
   display: flex;
@@ -163,8 +167,8 @@ input:focus{
 .char_choice{
   height: 33px;
   width: 33px;
-  background: url('./sprites.png');
-  transform: scale(2.5)
+  background: url('./testsprites.png');
+  transform: scale(2.9)
 }
 #char_1{
   background-position: 0px -2px;
@@ -189,7 +193,14 @@ input:focus{
   border-right: 10px solid transparent;
 }
 .active{
-  /* width: 0; 
-  height: 0;  */
   border-bottom: 10px solid white;
+}
+#me{
+  height: 33px;
+  width: 33px;
+  background: url('./testsprites.png');
+  transform: scale(2.9) scaleX(-1);
+  position: absolute;
+  top: 50%;
+  left: 25%;
 }

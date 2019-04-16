@@ -4,6 +4,7 @@ import './App.css';
 import Menu from './Menu/Menu'
 import Display from './Display/Display'
 import CharSelect from './CharSelect/CharSelect'
+import Me from './Me/Me'
 
 class App extends Component {
   state = {
@@ -27,6 +28,8 @@ class App extends Component {
     my_defence: null,
     enemy_attack: null,
     enemy_defence: null,
+    my_character: null,
+    enemt_character: null,
     view: 'char_select',
     selection: 'attack',
     choices: ['rock', 'paper', 'scissors'],
@@ -38,14 +41,12 @@ class App extends Component {
 
   componentDidMount() {
     window.addEventListener('keydown', (e) => {
-      // console.log(e.key)
+      if (this.state.view === 'select'){
       switch (e.key) {
-        // case "Down":
         case "ArrowDown":
           e.preventDefault();
           this.cycle_index_up(this.state.choices_index);
           break;
-        // case "Up":
         case "ArrowUp":
           e.preventDefault();
           this.cycle_index_down(this.state.choices_index);
@@ -57,7 +58,9 @@ class App extends Component {
         default:
           console.log('there was a problem')
       }
-    }, true)
+    // }, true)
+      }
+    })
   }
 
   set_attack = () => {
@@ -254,13 +257,30 @@ class App extends Component {
   draw = () => {
     this.set_text('Draw!')
   }
+start = (char, name) => {
+  if (!name.length){
+    name = "anonymous"
+  }
+  this.setState({
+    my_character: char,
+    my_name: name,
+    view: 'select',
+    display_text: "Select Attack" 
+  })
+}
 
 
   render() {
     return (
       <div id="wrapper">
+        <Me
+          my_character = {this.state.my_character}
+          my_attack = {this.state.my_attack}
+          my_defence = {this.state.my_defence}
+        />
         <CharSelect
           view={this.state.view}
+          start = {this.start}
         />
         <Display
           display_text={this.state.display_text}
