@@ -202,5 +202,15 @@ input:focus{
   transform: scale(2.9) scaleX(-1);
   position: absolute;
   top: 50%;
-  left: 25%;
+  left: 27%;
+}
+
+#enemy{
+  height: 33px;
+  width: 33px;
+  background: url('./testsprites.png');
+  transform: scale(2.9);
+  position: absolute;
+  top: 50%;
+  right: 27%;
 }

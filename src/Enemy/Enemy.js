@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class Me extends Component {
+class Enemy extends Component {
     componentDidUpdate = () => {
         this.setY();
         this.setX();
@@ -13,8 +13,8 @@ class Me extends Component {
 
     }
     setY = () => {
-        let sprite = document.getElementById('me')
-        switch(this.props.my_character){
+        let sprite = document.getElementById('enemy')
+        switch(this.props.enemy_character){
             case 1:
                 sprite.style.backgroundPositionY = '-2px';
                 break;
@@ -40,9 +40,9 @@ class Me extends Component {
 
     render() {
         return (
-            <div id="me"></div>
+            <div id="enemy"></div>
         )
     }
 }
 
-export default Me
+export default Enemy

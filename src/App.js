@@ -5,6 +5,7 @@ import Menu from './Menu/Menu'
 import Display from './Display/Display'
 import CharSelect from './CharSelect/CharSelect'
 import Me from './Me/Me'
+import Enemy from './Enemy/Enemy.js'
 
 class App extends Component {
   state = {
@@ -273,6 +274,9 @@ start = (char, name) => {
   render() {
     return (
       <div id="wrapper">
+        <Enemy
+        enemy_character = {this.state.enemy_character}
+        />
         <Me
           my_character = {this.state.my_character}
           my_attack = {this.state.my_attack}
