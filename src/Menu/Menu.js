@@ -22,7 +22,6 @@ class Menu extends Component {
     set_bar = () => {
         let bar = document.getElementById('bar');
         let hp = this.props.my_stats.hp;
-        console.log(hp)
         switch (hp) {
             case 3:
                 bar.style.width = "100%";

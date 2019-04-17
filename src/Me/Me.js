@@ -3,15 +3,15 @@ import React, { Component } from 'react'
 class Me extends Component {
     componentDidUpdate = () => {
         this.setY();
-        this.setX();
+        // this.setX();
     }
     componentDidMount = () => {
         this.setY();
-        this.setX();
+        // this.setX();
     }
-    setX = () => {
+    // setX = () => {
 
-    }
+    // }
     setY = () => {
         let sprite = document.getElementById('me')
         switch(this.props.my_character){

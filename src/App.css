@@ -203,6 +203,10 @@ input:focus{
   position: absolute;
   top: 50%;
   left: 27%;
+  transition-property: left;
+  transition-duration: 1s;
+  transition-timing-function: linear;
+  background-position-x: 0;
 }
 
 #enemy{
@@ -213,4 +217,57 @@ input:focus{
   position: absolute;
   top: 50%;
   right: 27%;
+  transition-property: right, opacity;
+  transition-duration: 1s;
+  transition-timing-function: linear;
+}
+#my_move{
+  background: url('./hands.png');
+  position: absolute;
+  top: 45%;
+  left: 40%;
+  transition-property: left, opacity;
+  transition-duration: .5s;
+  transition-timing-function: linear;
+  transform: rotate(90deg);
+  opacity: 1;
+  height: 0px;
+  width: 0px;
+}
+#enemy_move{
+  background: url('./hands.png');
+  position: absolute;
+  top: 45%;
+  right: 40%;
+  transition-property: right, opacity;
+  transition-duration: .5s;
+  transition-timing-function: linear;
+  transform: rotate(90deg) scaleY(-1);
+  opacity: 1;
+  height: 0px;
+  width: 0px;
+}
+#enemy_defence{
+  background: url('./hands.png');
+  position: absolute;
+  top: 45%;
+  right: 27%;
+  transition-property: right, opacity;
+  transition-duration: .6s;
+  transition-timing-function: linear;
+  opacity: 1;
+  height: 0px;
+  width: 0px;
+}
+#my_defence{
+  background: url('./hands.png');
+  position: absolute;
+  top: 45%;
+  left: 27%;
+  transition-property: left, opacity;
+  transition-duration: .6s;
+  transition-timing-function: linear;
+  opacity: 1;
+  height: 0px;
+  width: 0px;
 }
