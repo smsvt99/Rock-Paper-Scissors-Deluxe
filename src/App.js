@@ -7,6 +7,7 @@ import CharSelect from './CharSelect/CharSelect'
 import Me from './Me/Me'
 import Enemy from './Enemy/Enemy'
 import MyMove from './MyMove/MyMove'
+import EnemyDefence from './EnemyDefence/EnemyDefence'
 
 class App extends Component {
   state = {
@@ -31,14 +32,34 @@ class App extends Component {
     enemy_attack: null,
     enemy_defence: null,
     my_character: null,
-    enemt_character: null,
+    enemy_character: null,
     view: 'char_select',
     selection: 'attack',
     choices: ['rock', 'paper', 'scissors'],
     choices_index: 0,
     my_name: 'Noid',
     enemy_name: 'Timothy',
-    display_text: ''
+    display_text: '',
+    animate_me: null,
+    animate_my_move: null,
+    animate_enemy: null,
+    animate_enemy_defence: null,
+    animate_enemy_move: null,
+    names : {
+      // me: document.getElementById('me'),
+      // enemy: document.getElementById('enemy'),
+      // my_move: document.getElementById('my_move'),
+      // enemy_move: document.getElementById('enemy_move'),
+      // my_defence: document.getElementById('my_defence'),
+      // enemy_defence: document.getElementById('enemy_defence'),
+      standing : "0px",
+      walking : "-31px",
+      pre_attack : "-63px",
+      attack : "-91px",
+      hit : "-133px",
+      hurt : "-163px",
+      dead : "-253px",
+    }
   }
 
   componentDidMount() {
@@ -197,119 +218,152 @@ class App extends Component {
     setTimeout(() => {
       this.set_text(`${this.state.my_name} uses ${this.state.my_attack.toUpperCase()}!`);
       
-      me.style.left = '40%'
-      my_interval = setInterval(() => {
-        if (window.getComputedStyle(me).backgroundPositionX === standing) {
-          me.style.backgroundPositionX = walking;
-        } else {
-          me.style.backgroundPositionX = standing;
-        }
-      }, 150)
+      // me.style.left = '40%'
+      // my_interval = setInterval(() => {
+      //   if (window.getComputedStyle(me).backgroundPositionX === standing) {
+      //     me.style.backgroundPositionX = walking;
+      //   } else {
+      //     me.style.backgroundPositionX = standing;
+      //   }
+      // }, 150)
+      this.setState({
+        animate_me: 'approach'
+      })
     }, 1000)
 
     //stop walking, stand
     setTimeout(() => {
-      clearInterval(my_interval);
-      me.style.backgroundPositionX = standing;
+      // clearInterval(my_interval);
+      // me.style.backgroundPositionX = standing;
+      this.setState({
+        animate_me : 'stop walking'
+      })
     }, 2200)
 
     //attack animation part one
     setTimeout(() => {
-      me.style.backgroundPositionX = pre_attack;
+      this.setState({
+        animate_me: 'attack'
+      })
+      // me.style.backgroundPositionX = pre_attack;
     }, 2300)
 
     //attack animation part two, hand begins moving right and 
     setTimeout(() => {
-      me.style.backgroundPositionX = attack;
-      switch (this.state.my_attack) {
-        case "rock":
-          my_move.style.backgroundPosition = "-915px -310px";
-          my_move.style.height = "95px";
-          my_move.style.width = "95px";
-          break;
-        case "paper":
-          my_move.style.backgroundPosition = "-688px -290px";
-          my_move.style.height = "120px";
-          my_move.style.width = "90px";
-          break;
-        case 'scissors':
-          my_move.style.backgroundPosition = "-230px -520px";
-          my_move.style.height = "120px";
-          my_move.style.width = "90px";
-          break;
-        default:
-          console.log('something went wrong')
-      }
-      my_move.style.opacity = "0";
-      my_move.style.left = '75%';
+      // me.style.backgroundPositionX = attack;
+      this.setState({
+        animate_my_move: 'execute'
+      })
+      // switch (this.state.my_attack) {
+      //   case "rock":
+      //     my_move.style.backgroundPosition = "-915px -310px";
+      //     my_move.style.height = "95px";
+      //     my_move.style.width = "95px";
+      //     break;
+      //   case "paper":
+      //     my_move.style.backgroundPosition = "-688px -290px";
+      //     my_move.style.height = "120px";
+      //     my_move.style.width = "90px";
+      //     break;
+      //   case 'scissors':
+      //     my_move.style.backgroundPosition = "-230px -520px";
+      //     my_move.style.height = "120px";
+      //     my_move.style.width = "90px";
+      //     break;
+      //   default:
+      //     console.log('something went wrong')
+      // }
+      // my_move.style.opacity = "0";
+      // my_move.style.left = '75%';
     }, 2500)
 
     //return to standing position, enemy hit animation, enemy hp--
     setTimeout(() => {
-      if (this.state.my_stats.hp > 1){
-        me.style.backgroundPositionX = standing;
-      } else if (this.state.enemy_stats.hp <= 1){
-        me.style.backgroundPositionX = hurt;
-      } 
-      let enemy_defence = document.getElementById('enemy_defence')
-      switch (this.state.enemy_defence) {
-        case "rock":
-          enemy_defence.style.backgroundPosition = "-915px -310px";
-          enemy_defence.style.height = "95px";
-          enemy_defence.style.width = "95px";
-          break;
-        case "paper":
-          enemy_defence.style.backgroundPosition = "-688px -290px";
-          enemy_defence.style.height = "120px";
-          enemy_defence.style.width = "90px";
-          break;
-        case 'scissors':
-          enemy_defence.style.backgroundPosition = "-230px -520px";
-          enemy_defence.style.height = "120px";
-          enemy_defence.style.width = "90px";
-          break;
-        default:
-          console.log('something went wrong')
-      }
-      enemy_defence.style.opacity = "0";
-      enemy_defence.style.right = '35%';
+      this.setState({
+        animate_enemy: 'show_damage'
+      })
+      // if (this.state.my_stats.hp > 1){
+      //   me.style.backgroundPositionX = standing;
+      // } else if (this.state.enemy_stats.hp <= 1){
+      //   me.style.backgroundPositionX = hurt;
+      // } 
+      // let enemy_defence = document.getElementById('enemy_defence')
 
-      if (!this.enemy_block_successful()){
-        enemy.style.backgroundPositionX = hit;
-        enemy_defence.style.right = '10%';
-        this.take_damage('enemy')
+      // switch (this.state.enemy_defence) {
+      //   case "rock":
+      //     enemy_defence.style.backgroundPosition = "-915px -310px";
+      //     enemy_defence.style.height = "95px";
+      //     enemy_defence.style.width = "95px";
+      //     break;
+      //   case "paper":
+      //     enemy_defence.style.backgroundPosition = "-688px -290px";
+      //     enemy_defence.style.height = "120px";
+      //     enemy_defence.style.width = "90px";
+      //     break;
+      //   case 'scissors':
+      //     enemy_defence.style.backgroundPosition = "-230px -520px";
+      //     enemy_defence.style.height = "120px";
+      //     enemy_defence.style.width = "90px";
+      //     break;
+      //   default:
+      //     console.log('something went wrong')
+      // }
+      // enemy_defence.style.opacity = "0";
+      // enemy_defence.style.right = '35%';
+
+      if (this.enemy_block_successful()){
+         // enemy_defence.style.right = '35%';
+         this.setState({
+           animate_enemy_defence: 'success',
+           animate_enemy: 'celebrate'
+         })
       } else {
-        enemy_defence.style.right = '35%';
+        this.setState({
+          animate_enemy_defence: 'failure',
+          animate_enemy: 'get_hit'
+        })
+        this.take_damage('enemy')
+        // enemy.style.backgroundPositionX = hit;
+        // enemy_defence.style.right = '10%';
       }
     }, 2700)
 
     //reset attack hand, defence hand, turn around, walk animation, go left, reset enemy animation
     setTimeout(() => {
-      my_move.style.height = "0px";
-      my_move.style.width = "0px";
-      my_move.style.opacity = "1";
-      my_move.style.left = "40%";
 
-      enemy_defence.style.height = "0px";
-      enemy_defence.style.width = "0px";
-      enemy_defence.style.opacity = "1";
-      enemy_defence.style.right = "27%";
+      this.setState({
+        animate_my_move: 'reset',
+        animate_enemy_defence: 'reset',
+        animate_me: 'return',
+        animate_enemy: 'show_damage'
+      })
+      // my_move.style.height = "0px";
+      // my_move.style.width = "0px";
+      // my_move.style.opacity = "1";
+      // my_move.style.left = "40%";
+
+      // enemy_defence.style.height = "0px";
+      // enemy_defence.style.width = "0px";
+      // enemy_defence.style.opacity = "1";
+      // enemy_defence.style.right = "27%";
 
 
-      me.style.left = "27%"
-      me.style.transform = 'scale(2.9)';
-      my_interval = setInterval(() => {
-        if (window.getComputedStyle(me).backgroundPositionX === standing) {
-          me.style.backgroundPositionX = walking;
-        } else {
-          me.style.backgroundPositionX = standing;
-        }
-      }, 150)
-      if (this.state.enemy_stats.hp > 1){
-        enemy.style.backgroundPositionX = standing;
-      } else if (this.state.enemy_stats.hp <= 1){
-        enemy.style.backgroundPositionX = hurt;
-      } 
+      // me.style.left = "27%"
+      // me.style.transform = 'scale(2.9)';
+
+      // my_interval = setInterval(() => {
+      //   if (window.getComputedStyle(me).backgroundPositionX === standing) {
+      //     me.style.backgroundPositionX = walking;
+      //   } else {
+      //     me.style.backgroundPositionX = standing;
+      //   }
+      // }, 150)
+
+      // if (this.state.enemy_stats.hp > 1){
+      //   enemy.style.backgroundPositionX = standing;
+      // } else if (this.state.enemy_stats.hp <= 1){
+      //   enemy.style.backgroundPositionX = hurt;
+      // } 
     }, 3500)
 
     //enemy reaction
@@ -323,9 +377,12 @@ class App extends Component {
 
     //stop walking, turn back around
     setTimeout(() => {
-      clearInterval(my_interval);
-      me.style.transform = "scale(2.9) scaleX(-1)"
-      me.style.backgroundPositionX = standing;
+      // clearInterval(my_interval);
+      // me.style.transform = "scale(2.9) scaleX(-1)"
+      // me.style.backgroundPositionX = standing;
+      this.setState({
+        animate_me: 'returned'
+      })
     }, 4500)
 
     //enemy attack
@@ -407,10 +464,14 @@ class App extends Component {
 
       if (!this.my_block_successful()){
         me.style.backgroundPositionX = hit;
-        my_defence.style.right = '10%';
+        my_defence.style.left = '10%';
         this.take_damage('me')
       } else {
+        this.setState({
+          animate_me: 'celebrate'
+        })
         my_defence.style.right = '35%';
+
       }
     }, 7700)
 
@@ -449,7 +510,7 @@ class App extends Component {
         this.set_text(`But ${this.state.my_name} blocks it with ${this.state.my_defence.toUpperCase()}!`);
       } else {
         this.set_text(`${this.state.my_name} tries to block with ${this.state.my_defence.toUpperCase()}...but it doesn't work`);
-        this.take_damage('me')
+        // this.take_damage('me')
       }
     }, 9000)
 
@@ -545,25 +606,62 @@ class App extends Component {
       display_text: "Select Attack"
     })
   }
+  get_hand_position = (choice) => {
+    let style = {}
+    switch (choice) {
+      case "rock":
+        style.backgroundPosition = "-915px -310px";
+        style.height = "95px";
+        style.width = "95px";
+        break;
+      case "paper":
+        style.backgroundPosition = "-688px -290px";
+        style.height = "120px";
+        style.width = "90px";
+        break;
+      case 'scissors':
+        style.backgroundPosition = "-230px -520px";
+        style.height = "120px";
+        style.width = "90px";
+        break;
+      default:
+        console.log('something went wrong')
+    }
+    return style;
+    // my_move.style.opacity = "0";
+    // my_move.style.left = '75%';
+  }
 
 
   render() {
     return (
       <div id="wrapper">
-        {/* <MyMove
+        <MyMove
           my_attack={this.state.my_attack}
-        /> */}
-        <div id="my_move"></div>
+          get_hand_position={this.get_hand_position}
+          animate_my_move={this.state.animate_my_move}
+        />
         <div id="enemy_move"></div>
         <div id="my_defence"></div>
-        <div id="enemy_defence"></div>
+        {/* <div id="enemy_defence"></div> */}
+        <EnemyDefence
+          enemy_defence = {this.state.enemy_defence}
+          get_hand_position = {this.get_hand_position}
+          animate_enemy_defence = {this.state.animate_enemy_defence}
+        />
         <Enemy
           enemy_character={this.state.enemy_character}
+          animate_enemy={this.state.animate_enemy}
+          enemy_stats={this.state.enemy_stats}
+          names={this.state.names}
         />
         <Me
+          names={this.state.names}
+          animate_me={this.state.animate_me}
           my_character={this.state.my_character}
-          my_attack={this.state.my_attack}
-          my_defence={this.state.my_defence}
+          // my_attack={this.state.my_attack}
+          // my_defence={this.state.my_defence}
+          my_stats={this.state.my_stats}
         />
         <CharSelect
           view={this.state.view}

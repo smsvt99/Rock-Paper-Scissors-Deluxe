@@ -1,20 +1,111 @@
 import React, { Component } from 'react'
 
 class Me extends Component {
+    constructor(props) {
+        super(props);
+        // const me = document.getElementById('me')
+        this.state = {
+            my_interval: null,
+            left: '27%',
+            backgroundPositionX: '0px;'
+        }
+    }
+    // me = document.getElementById('me')
+
+    me = () => {
+        return document.getElementById('me')
+    }
+    walk = () => {
+        // const me = document.getElementById('me')
+        const { names } = this.props;
+        // names.me = document.getElementById('me')
+        this.setState({
+            my_interval: setInterval(() => {
+                if (window.getComputedStyle(this.me()).backgroundPositionX === names.standing) {
+                    this.me().style.backgroundPositionX = names.walking;
+                } else {
+                    this.me().style.backgroundPositionX = names.standing;
+                }
+            }, 150)
+        })
+    }
+    stop_walking(){
+        const {names} = this.props;
+        clearInterval(this.state.my_interval);
+        this.me().style.backgroundPositionX = names.standing;
+    }
+    approach = () => {
+        // let me = document.getElementById('me')
+        // const { names } = this.props;
+        this.me().style.left = '40%';
+        this.walk();
+    }
+    attack = () => {
+        const { names } = this.props;
+        this.me().backgroundPositionX = names.pre_attack
+        setTimeout(()=>{
+            this.me().backgroundPositionX = names.attack
+        },200)
+
+    }
+    show_damage = () => {
+        let { names } = this.props;
+
+        if (this.props.my_stats.hp > 1){
+            this.me().style.backgroundPositionX = names.standing;
+          } else if (this.state.my_stats.hp <= 1){
+            this.me().style.backgroundPositionX = names.hurt;
+          } 
+    }
+    celebrate = () => {
+        const { names } = this.props
+        this.me().style.backgroundPositionX = names.pre_attack;
+        setTimeout(() => {
+            this.me().style.backgroundPositionX = names.standing;
+        }, 200)
+        setTimeout(() => {
+            this.me().style.backgroundPositionX = names.pre_attack;
+        }, 400)
+        setTimeout(() => {
+            this.me().style.backgroundPositionX = names.standing;
+        }, 600)
+    }
+    return = () => {
+        this.me().style.left = "27%"
+        this.me().style.transform = 'scale(2.9)';
+        this.walk();
+    }
+    returned = () => {
+      this.stop_walking();
+      this.me().style.transform = "scale(2.9) scaleX(-1)"
+    }
     componentDidUpdate = () => {
         this.setY();
-        // this.setX();
+    }
+    componentWillUpdate = (nextProps, nextState) => {
+        //this prevents the animations from repeating on every update. 
+        //consequently, however, the same animation cannot be called twice in a row.
+        if (this.props.animate_me !== nextProps.animate_me) {
+            switch (nextProps.animate_me) {
+                case "celebrate": this.celebrate(); break;
+                case "approach": this.approach(); break;
+                case "stop walking": this.stop_walking(); break;
+                case "attack": this.attack(); break;
+                case "show_damage": this.show_damage(); break;
+                case "return": this.return(); break;
+                case "returned": this.returned(); break;
+            }
+        }
     }
     componentDidMount = () => {
-        this.setY();
-        // this.setX();
+        // this.setY();
     }
     // setX = () => {
 
     // }
     setY = () => {
         let sprite = document.getElementById('me')
-        switch(this.props.my_character){
+        switch (this.props.my_character) {
             case 1:
                 sprite.style.backgroundPositionY = '-2px';
                 break;
@@ -35,7 +126,7 @@ class Me extends Component {
                 break;
             default:
                 sprite.style.backgroundPositionY = '-2px';
-            }
+        }
     }
 
     render() {
