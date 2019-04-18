@@ -15,9 +15,7 @@ class EnemyDefence extends Component{
         this.enemy_defence().style.right = '10%'
     }
     set_style = () => {
-        // console.log('set style')
        let style = this.props.get_hand_position(this.props.enemy_defence);
-    //    console.log(style)
         this.enemy_defence().style.height = style.height;
         this.enemy_defence().style.width = style.width;
         this.enemy_defence().style.backgroundPosition = style.backgroundPosition;
@@ -31,7 +29,6 @@ class EnemyDefence extends Component{
         this.enemy_defence().style.right = "27%";
     }
     componentWillUpdate = (nextProps, nextState) => {
-        // console.log('component will update: ' + this.props.animate_enemy_defence)
         if (this.props.animate_enemy_defence !== nextProps.animate_enemy_defence) {
             switch(nextProps.animate_enemy_defence){
                 case 'success': this.success(); break;

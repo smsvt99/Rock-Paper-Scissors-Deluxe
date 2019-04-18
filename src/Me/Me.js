@@ -3,22 +3,17 @@ import React, { Component } from 'react'
 class Me extends Component {
     constructor(props) {
         super(props);
-        // const me = document.getElementById('me')
         this.state = {
             my_interval: null,
             left: '27%',
             backgroundPositionX: '0px;'
         }
     }
-    // me = document.getElementById('me')
-
     me = () => {
         return document.getElementById('me')
     }
     walk = () => {
-        // const me = document.getElementById('me')
         const { names } = this.props;
-        // names.me = document.getElementById('me')
         this.setState({
             my_interval: setInterval(() => {
                 if (window.getComputedStyle(this.me()).backgroundPositionX === names.standing) {
@@ -35,18 +30,23 @@ class Me extends Component {
         this.me().style.backgroundPositionX = names.standing;
     }
     approach = () => {
-        // let me = document.getElementById('me')
-        // const { names } = this.props;
         this.me().style.left = '40%';
         this.walk();
     }
     attack = () => {
         const { names } = this.props;
-        this.me().backgroundPositionX = names.pre_attack
+        this.me().style.backgroundPositionX = names.pre_attack
         setTimeout(()=>{
-            this.me().backgroundPositionX = names.attack
+            this.me().stylebackgroundPositionX = names.attack
         },200)
 
+    }
+    get_hit = () => {
+        const { names } = this.props
+        this.me().style.backgroundPositionX = names.hit;
+        setTimeout(()=>{
+            this.show_damage() 
+        }, 800)
     }
     show_damage = () => {
         let { names } = this.props;
@@ -94,41 +94,22 @@ class Me extends Component {
                 case "show_damage": this.show_damage(); break;
                 case "return": this.return(); break;
                 case "returned": this.returned(); break;
+                case "get_hit": this.get_hit(); break;
             }
         }
     }
-    componentDidMount = () => {
-        // this.setY();
-    }
-    // setX = () => {
-
-    // }
     setY = () => {
         let sprite = document.getElementById('me')
         switch (this.props.my_character) {
-            case 1:
-                sprite.style.backgroundPositionY = '-2px';
-                break;
-            case 2:
-                sprite.style.backgroundPositionY = '-40px';
-                break;
-            case 3:
-                sprite.style.backgroundPositionY = '-79px';
-                break;
-            case 4:
-                sprite.style.backgroundPositionY = '-116px';
-                break;
-            case 5:
-                sprite.style.backgroundPositionY = '-154px';
-                break;
-            case 6:
-                sprite.style.backgroundPositionY = '-187px';
-                break;
-            default:
-                sprite.style.backgroundPositionY = '-2px';
+            case 1: sprite.style.backgroundPositionY = '-2px'; break;
+            case 2: sprite.style.backgroundPositionY = '-40px'; break;
+            case 3: sprite.style.backgroundPositionY = '-79px'; break;
+            case 4: sprite.style.backgroundPositionY = '-116px'; break;
+            case 5: sprite.style.backgroundPositionY = '-154px'; break;
+            case 6: sprite.style.backgroundPositionY = '-187px'; break;
+            default: sprite.style.backgroundPositionY = '-2px';
         }
     }
-
     render() {
         return (
             <div id="me"></div>

@@ -1,6 +1,26 @@
 import React, { Component } from 'react'
 
 class Enemy extends Component {
+    state = {
+        enemy_interval: null,
+    }
+    walk = () => {
+        const {names} = this.props
+        this.setState({
+            enemy_interval : setInterval(() => {
+                if (window.getComputedStyle(this.enemy()).backgroundPositionX === names.standing) {
+                  this.enemy().style.backgroundPositionX = names.walking;
+                } else {
+                  this.enemy().style.backgroundPositionX = names.standing;
+                }
+              }, 150)
+        })
+    }
+    stop_walking = () => {
+        const {names} = this.props;
+        clearInterval(this.state.enemy_interval);
+        this.enemy().style.backgroundPositionX = names.standing;
+    }
     componentDidUpdate = () => {
         this.setY();
     }
@@ -12,18 +32,34 @@ class Enemy extends Component {
                 case "show_damage": this.show_damage(); break;
                 case "get_hit": this.get_hit(); break;
                 case "celebrate": this.celebrate(); break;
+                case "approach": this.approach(); break;
+                case "stop_walking": this.stop_walking(); break;
+                case "attack": this.attack(); break;
+                case "return": this.return(); break;
             }
         } else {
             console.log('no change in props')
         }
     }
-    // componentDidMount = () => {
-    //     this.setY();
-    //     this.setX();
-    // }
-    // setX = () => {
+    approach = () => {
+        this.enemy().style.right = '40%'
+        this.walk();
+      
+    }
+    return = () => {
+      this.walk();
+      this.enemy().style.right = "27%"
+      this.enemy().style.transform = 'scale(2.9) scaleX(-1)';
+      
+    }
+    attack = () => {
+        const { names } = this.props;
+        this.enemy().style.backgroundPositionX = names.pre_attack
+        setTimeout(()=>{
+            this.enemy().style.backgroundPositionX = names.attack
+        },200)
 
-    // }
+    }
     show_damage = () => {
         let { names } = this.props;  
         if (this.props.enemy_stats.hp > 1){
@@ -36,9 +72,9 @@ class Enemy extends Component {
         console.log('get hit')
         const { names } = this.props
         this.enemy().style.backgroundPositionX = names.hit;
-        // setTimeout(()=>{
-        //     this.show_damage() 
-        // }, 800)
+        setTimeout(()=>{
+            this.show_damage() 
+        }, 800)
     }
     celebrate = () => {
         console.log('celebrate')
