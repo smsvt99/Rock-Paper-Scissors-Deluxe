@@ -108,14 +108,15 @@ body{
   font-family: 'Press Start 2P', cursive;
   color: white;
   width: 80%;
-  /* height: 80%; */
+  height: 80%;
   top: 10%;
   left: 10%;
-  font-size: 30px;
+  font-size: 25px;
   padding: 25px;
   position: absolute;
   z-index: 1;
 }
+
 #screen{
   position: absolute;
   background-color: black;
@@ -142,7 +143,7 @@ input:focus{
   box-shadow: white 0 0 15px;
 }
 
-#start{
+#start, #next{
   font-size: 30px;
   background-color: black;
   border: 2px solid white;
@@ -151,18 +152,18 @@ input:focus{
   color: white;
   font-family: 'Press Start 2P', cursive;
   padding: 10px;
-  margin-top: 10%;
+  margin-top: 5%;
   border-radius: 10px;
   cursor: pointer;
 }
-#start:hover{
+#start:hover, #next:hover{
   background-color: blue;
 }
 .container{
   display: flex;
   justify-content: space-around;
   width: 75%;
-  margin: 5% auto;
+  margin: 4% auto;
 }
 .char_choice{
   height: 33px;
@@ -270,4 +271,12 @@ input:focus{
   opacity: 1;
   height: 0px;
   width: 0px;
+}
+#tip{
+  color: yellow;
+  font-size: 18px;
+  line-height: 25px;
+}
+#id{
+  text-align: center;
 }

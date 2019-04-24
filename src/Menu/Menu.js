@@ -1,17 +1,14 @@
 import React, { Component } from 'react'
 
 class Menu extends Component {
+
     componentDidUpdate = () => {
-        if (this.props !== 'char_select'){
+        if (this.props.view !== 'char_select'){
             this.point();
             this.set_bar();
         }
     }
-    componentDidMount = () => {
-        if(this.props.view === 'select'){
-            this.set_bar();
-        }
-    }
+
     point = () => {
         let options = document.getElementsByClassName('pointer');
         for (let option of options) {

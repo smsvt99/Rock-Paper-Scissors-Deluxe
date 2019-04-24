@@ -53,7 +53,7 @@ class Me extends Component {
 
         if (this.props.my_stats.hp > 1){
             this.me().style.backgroundPositionX = names.standing;
-          } else if (this.state.my_stats.hp <= 1){
+          } else if (this.props.my_stats.hp <= 1){
             this.me().style.backgroundPositionX = names.hurt;
           } 
     }
@@ -78,6 +78,7 @@ class Me extends Component {
     returned = () => {
       this.stop_walking();
       this.me().style.transform = "scale(2.9) scaleX(-1)"
+      this.show_damage();
     }
     componentDidUpdate = () => {
         this.setY();

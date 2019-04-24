@@ -11,6 +11,8 @@ import EnemyMove from './EnemyMove/EnemyMove'
 import EnemyDefence from './EnemyDefence/EnemyDefence'
 import MyDefence from './MyDefence/MyDefence'
 
+import socketIO from 'socket.io-client'
+
 class App extends Component {
   state = {
     my_stats: {
@@ -39,8 +41,8 @@ class App extends Component {
     selection: 'attack',
     choices: ['rock', 'paper', 'scissors'],
     choices_index: 0,
-    my_name: 'Noid',
-    enemy_name: 'Timothy',
+    my_name: null,
+    enemy_name: 'RPS-Bot',
     display_text: '',
     animate_me: null,
     animate_my_move: null,
@@ -48,12 +50,6 @@ class App extends Component {
     animate_enemy_defence: null,
     animate_enemy_move: null,
     names : {
-      // me: document.getElementById('me'),
-      // enemy: document.getElementById('enemy'),
-      // my_move: document.getElementById('my_move'),
-      // enemy_move: document.getElementById('enemy_move'),
-      // my_defence: document.getElementById('my_defence'),
-      // enemy_defence: document.getElementById('enemy_defence'),
       standing : "0px",
       walking : "-31px",
       pre_attack : "-63px",
@@ -61,10 +57,36 @@ class App extends Component {
       hit : "-133px",
       hurt : "-163px",
       dead : "-253px",
-    }
+    },
+    endpoint: "http://localhost:3000",
+    my_id : null,
+    enemy_id : null,
+    single_player : false,
   }
 
   componentDidMount() {
+    this.socket = socketIO(this.state.endpoint);
+
+    this.socket.on('socket_id', (data) => {
+      this.setState({
+        my_id: data
+      })
+    })
+
+    this.socket.on('initial_info_from_server', data => {
+      this.setState({
+        enemy_character: data.character,
+        enemy_name: data.name
+      })
+    })
+
+    this.socket.on('moves_from_server', data => {
+      this.setState({
+        enemy_attack : data.attack,
+        enemy_defence : data.defence
+      })
+    })
+
     window.addEventListener('keydown', (e) => {
       if (this.state.view === 'select') {
         switch (e.key) {
@@ -146,12 +168,23 @@ class App extends Component {
           my_defence: choices[index],
           selection: '',
           my_stats: stats_copy,
-          view: 'animation'
+          view: 'waiting'
         })
         this.set_text("Waiting for Opponent...")
-        this.get_enemy_move();
+        if(this.state.single_player === true) this.get_enemy_move()
+        else {
+          this.send_moves_to_server();
+          this.check_for_ready();
+        }
       }
     }
+  }
+  send_moves_to_server = () => {
+    this.socket.emit('moves_from_client', {
+      attack: this.state.my_attack,
+      defence: this.state.my_defence,
+      enemy_id : this.state.enemy_id
+    })
   }
   set_text = (my_text) => {
     this.setState({
@@ -190,131 +223,37 @@ class App extends Component {
   }
 
   fight = () => {
-    //0000 function called
-    //1000 walking animation begins, sprite begins moving right
-    //1300 attack name appears
-    //2000 sprite ceases moving right
-    //2200 walking animation stops
-    //2300 sprite attack animation part one
-    //2400 sprite attack animation part two
 
-    let me = document.getElementById('me');
-    let my_move = document.getElementById('my_move');
-    let my_defence = document.getElementById('my_defence')
-    let enemy_defence = document.getElementById('enemy_defence');
-    let enemy = document.getElementById('enemy');
-    let enemy_move = document.getElementById('enemy_move')
-    let my_interval;
-    let enemy_interval;
-
-    //sprite positions
-    const standing = "0px"
-    const walking = "-31px"
-    const pre_attack = "-63px"
-    const attack = "-91px"
-    const hit = "-133px"
-    const hurt = "-163px"
-    const dead = "-253px"
-
-    //show my attack name, move me right, start walking animation
     setTimeout(() => {
       this.set_text(`${this.state.my_name} uses ${this.state.my_attack.toUpperCase()}!`);
-      
-      // me.style.left = '40%'
-      // my_interval = setInterval(() => {
-      //   if (window.getComputedStyle(me).backgroundPositionX === standing) {
-      //     me.style.backgroundPositionX = walking;
-      //   } else {
-      //     me.style.backgroundPositionX = standing;
-      //   }
-      // }, 150)
       this.setState({
         animate_me: 'approach'
       })
     }, 1000)
 
-    //stop walking, stand
     setTimeout(() => {
-      // clearInterval(my_interval);
-      // me.style.backgroundPositionX = standing;
       this.setState({
         animate_me : 'stop walking'
       })
     }, 2200)
 
-    //attack animation part one
     setTimeout(() => {
       this.setState({
         animate_me: 'attack'
       })
-      // me.style.backgroundPositionX = pre_attack;
     }, 2300)
 
-    //attack animation part two, hand begins moving right and 
     setTimeout(() => {
-      // me.style.backgroundPositionX = attack;
       this.setState({
         animate_my_move: 'execute'
       })
-      // switch (this.state.my_attack) {
-      //   case "rock":
-      //     my_move.style.backgroundPosition = "-915px -310px";
-      //     my_move.style.height = "95px";
-      //     my_move.style.width = "95px";
-      //     break;
-      //   case "paper":
-      //     my_move.style.backgroundPosition = "-688px -290px";
-      //     my_move.style.height = "120px";
-      //     my_move.style.width = "90px";
-      //     break;
-      //   case 'scissors':
-      //     my_move.style.backgroundPosition = "-230px -520px";
-      //     my_move.style.height = "120px";
-      //     my_move.style.width = "90px";
-      //     break;
-      //   default:
-      //     console.log('something went wrong')
-      // }
-      // my_move.style.opacity = "0";
-      // my_move.style.left = '75%';
     }, 2500)
 
-    //return to standing position, enemy hit animation, enemy hp--
     setTimeout(() => {
       this.setState({
         animate_enemy: 'show_damage'
       })
-      // if (this.state.my_stats.hp > 1){
-      //   me.style.backgroundPositionX = standing;
-      // } else if (this.state.enemy_stats.hp <= 1){
-      //   me.style.backgroundPositionX = hurt;
-      // } 
-      // let enemy_defence = document.getElementById('enemy_defence')
-
-      // switch (this.state.enemy_defence) {
-      //   case "rock":
-      //     enemy_defence.style.backgroundPosition = "-915px -310px";
-      //     enemy_defence.style.height = "95px";
-      //     enemy_defence.style.width = "95px";
-      //     break;
-      //   case "paper":
-      //     enemy_defence.style.backgroundPosition = "-688px -290px";
-      //     enemy_defence.style.height = "120px";
-      //     enemy_defence.style.width = "90px";
-      //     break;
-      //   case 'scissors':
-      //     enemy_defence.style.backgroundPosition = "-230px -520px";
-      //     enemy_defence.style.height = "120px";
-      //     enemy_defence.style.width = "90px";
-      //     break;
-      //   default:
-      //     console.log('something went wrong')
-      // }
-      // enemy_defence.style.opacity = "0";
-      // enemy_defence.style.right = '35%';
-
       if (this.enemy_block_successful()){
-         // enemy_defence.style.right = '35%';
          this.setState({
            animate_enemy_defence: 'success',
            animate_enemy: 'celebrate'
@@ -325,50 +264,18 @@ class App extends Component {
           animate_enemy: 'get_hit'
         })
         this.take_damage('enemy')
-        // enemy.style.backgroundPositionX = hit;
-        // enemy_defence.style.right = '10%';
       }
     }, 2700)
 
-    //reset attack hand, defence hand, turn around, walk animation, go left, reset enemy animation
     setTimeout(() => {
-
       this.setState({
         animate_my_move: 'reset',
         animate_enemy_defence: 'reset',
         animate_me: 'return',
         animate_enemy: 'show_damage'
       })
-      // my_move.style.height = "0px";
-      // my_move.style.width = "0px";
-      // my_move.style.opacity = "1";
-      // my_move.style.left = "40%";
-
-      // enemy_defence.style.height = "0px";
-      // enemy_defence.style.width = "0px";
-      // enemy_defence.style.opacity = "1";
-      // enemy_defence.style.right = "27%";
-
-
-      // me.style.left = "27%"
-      // me.style.transform = 'scale(2.9)';
-
-      // my_interval = setInterval(() => {
-      //   if (window.getComputedStyle(me).backgroundPositionX === standing) {
-      //     me.style.backgroundPositionX = walking;
-      //   } else {
-      //     me.style.backgroundPositionX = standing;
-      //   }
-      // }, 150)
-
-      // if (this.state.enemy_stats.hp > 1){
-      //   enemy.style.backgroundPositionX = standing;
-      // } else if (this.state.enemy_stats.hp <= 1){
-      //   enemy.style.backgroundPositionX = hurt;
-      // } 
     }, 3500)
 
-    //enemy reaction
     setTimeout(() => {
       if (this.enemy_block_successful()) {
         this.set_text(`But ${this.state.enemy_name} blocks it with ${this.state.enemy_defence.toUpperCase()}!`);
@@ -377,77 +284,36 @@ class App extends Component {
       }
     }, 3600)
 
-    //stop walking, turn back around
     setTimeout(() => {
-      // clearInterval(my_interval);
-      // me.style.transform = "scale(2.9) scaleX(-1)"
-      // me.style.backgroundPositionX = standing;
       this.setState({
         animate_me: 'returned'
       })
     }, 4500)
 
-    //enemy attack
+    //enemy attack///////////////////////
     setTimeout(() => {
       this.set_text(`${this.state.enemy_name} uses ${this.state.enemy_attack.toUpperCase()}!`);
-
-      // enemy.style.right = '40%'
-      // enemy_interval = setInterval(() => {
-      //   if (window.getComputedStyle(enemy).backgroundPositionX === standing) {
-      //     enemy.style.backgroundPositionX = walking;
-      //   } else {
-      //     enemy.style.backgroundPositionX = standing;
-      //   }
-      // }, 150)
       this.setState({
         animate_enemy: 'approach'
       })
     }, 6000)
 
-    //stop walking, stand
     setTimeout(() => {
-      // clearInterval(enemy_interval);
-      // enemy.style.backgroundPositionX = standing;
       this.setState({
         animate_enemy : 'stop_walking'
       })
     }, 7200)
 
-    //attack animation part 1
     setTimeout(() => {
-      // enemy.style.backgroundPositionX = pre_attack;
       this.setState({
         animate_enemy: 'attack'
       })
     }, 7300)
 
     setTimeout(() => {
-      // enemy.style.backgroundPositionX = attack;
-
       this.setState({
         animate_enemy_move: 'execute'
       })
-      // switch (this.state.enemy_attack) {
-      //   case "rock":
-      //     enemy_move.style.backgroundPosition = "-915px -310px";
-      //     enemy_move.style.height = "95px";
-      //     enemy_move.style.width = "95px";
-      //     break;
-      //   case "paper":
-      //     enemy_move.style.backgroundPosition = "-688px -290px";
-      //     enemy_move.style.height = "120px";
-      //     enemy_move.style.width = "90px";
-      //     break;
-      //   case 'scissors':
-      //     enemy_move.style.backgroundPosition = "-230px -520px";
-      //     enemy_move.style.height = "120px";
-      //     enemy_move.style.width = "90px";
-      //     break;
-      //   default:
-      //     console.log('something went wrong')
-      // }
-      // enemy_move.style.opacity = "0";
-      // enemy_move.style.right = '75%';
     }, 7500)
 
     setTimeout(() => {
@@ -464,45 +330,8 @@ class App extends Component {
           animate_my_defence: "failure",
           animate_me: 'get_hit'
         })
+        this.take_damage('me')
       }
-      // if (this.state.enemy_stats.hp > 1){
-      //   enemy.style.backgroundPositionX = standing;
-      // } else if (this.state.enemy_stats.hp <= 1){
-      //   enemy.style.backgroundPositionX = hurt;
-      // } 
-    //   switch (this.state.my_defence) {
-    //     case "rock":
-    //       my_defence.style.backgroundPosition = "-915px -310px";
-    //       my_defence.style.height = "95px";
-    //       my_defence.style.width = "95px";
-    //       break;
-    //     case "paper":
-    //       my_defence.style.backgroundPosition = "-688px -290px";
-    //       my_defence.style.height = "120px";
-    //       my_defence.style.width = "90px";
-    //       break;
-    //     case 'scissors':
-    //       my_defence.style.backgroundPosition = "-230px -520px";
-    //       my_defence.style.height = "120px";
-    //       my_defence.style.width = "90px";
-    //       break;
-    //     default:
-    //       console.log('something went wrong')
-    //   }
-    //   my_defence.style.opacity = "0";
-    //   my_defence.style.left = '35%';
-
-    //   if (!this.my_block_successful()){
-    //     me.style.backgroundPositionX = hit;
-    //     my_defence.style.left = '10%';
-    //     this.take_damage('me')
-    //   } else {
-    //     this.setState({
-    //       animate_me: 'celebrate'
-    //     })
-    //     my_defence.style.right = '35%';
-
-    //   }
     }, 7700)
 
     setTimeout(() => {
@@ -512,67 +341,35 @@ class App extends Component {
         animate_enemy: 'return',
         animate_me: 'show_damage'
       })
-
-      // enemy_move.style.height = "0px";
-      // enemy_move.style.width = "0px";
-      // enemy_move.style.opacity = "1";
-      // enemy_move.style.right = "40%";
-
-      // my_defence.style.height = "0px";
-      // my_defence.style.width = "0px";
-      // my_defence.style.opacity = "1";
-      // my_defence.style.left = "27%";
-
-      // enemy.style.right = "27%"
-      // enemy.style.transform = 'scale(2.9) scaleX(-1)';
-      
-      // enemy_interval = setInterval(() => {
-      //   if (window.getComputedStyle(enemy).backgroundPositionX === standing) {
-      //     enemy.style.backgroundPositionX = walking;
-      //   } else {
-      //     enemy.style.backgroundPositionX = standing;
-      //   }
-      // }, 150)
-
-      // if (this.state.my_stats.hp > 1){
-      //   me.style.backgroundPositionX = standing;
-      // } else if (this.state.my_stats.hp <= 1){
-      //   me.style.backgroundPositionX = hurt;
-      // } 
     }, 8500)
 
-    //my reaction
     setTimeout(() => {
       if (this.my_block_successful()) {
         this.set_text(`But ${this.state.my_name} blocks it with ${this.state.my_defence.toUpperCase()}!`);
       } else {
         this.set_text(`${this.state.my_name} tries to block with ${this.state.my_defence.toUpperCase()}...but it doesn't work`);
-        // this.take_damage('me')
       }
     }, 9000)
 
-       //stop walking, turn back around
        setTimeout(() => {
-        clearInterval(enemy_interval);
-        enemy.style.transform = "scale(2.9)"
+         this.setState({
+           animate_enemy: 'returned'
+         })
+      }, 9500)
 
-        if (this.state.enemy_stats.hp > 1){
-          enemy.style.backgroundPositionX = standing;
-        } else if (this.state.enemy_stats.hp <= 1){
-          enemy.style.backgroundPositionX = hurt;
-        } 
-      }, 9200)
-
-    //back to move select
     setTimeout(() => {
       if (!this.is_winner()) {
         this.setState({
           view: 'select',
-          selection: 'attack'
+          selection: 'attack',
+          my_attack: null,
+          my_defence: null,
+          enemy_attack: null,
+          enemy_defence: null
         })
         this.set_text('Select Attack')
       }
-    }, 12500)
+    }, 10500)
   }
 
   get_random_int = (max) => {
@@ -632,17 +429,40 @@ class App extends Component {
   draw = () => {
     this.set_text('Draw!')
   }
-  start = (char, name) => {
-    if (!name.length) {
-      name = "anonymous"
-    }
+  start = (char, name, id) => {
+
+    if (!name.length) name = "anonymous"
+
     this.setState({
+      enemy_id: id,
       my_character: char,
       my_name: name,
+    }, this.send_initial_info)
+
+    function reduce_opacity(){
+      let box = document.getElementById('char_select');
+      let current_opacity = window.getComputedStyle(box).opacity
+      box.style.opacity = current_opacity - .2
+    }
+
+    setTimeout(reduce_opacity, 500) //.8
+    setTimeout(reduce_opacity, 1000) //.6
+    setTimeout(reduce_opacity, 1500) //.4
+    setTimeout(reduce_opacity, 2000) //.2
+    setTimeout(reduce_opacity, 2500) //0
+    
+    setTimeout(()=>{
+    let single_player = false
+    if (!id.length) single_player = true
+
+    this.setState({
       view: 'select',
-      display_text: "Select Attack"
+      display_text: "Select Attack",
+      single_player : single_player
     })
-  }
+  }, 2500)
+}
+
   get_hand_position = (choice) => {
     let style = {}
     switch (choice) {
@@ -668,7 +488,30 @@ class App extends Component {
     // my_move.style.opacity = "0";
     // my_move.style.left = '75%';
   }
-
+  send_initial_info = () => {
+    this.socket.emit('initial_info', {
+      name: this.state.my_name,
+      enemy_id: this.state.enemy_id,
+      character: this.state.my_character
+    })
+  }
+  check_for_ready = () => {
+    console.log('checking...')
+    let timeout;
+    if (this.state.enemy_attack && this.state.enemy_defence){
+      this.setState({
+        view: 'animation'
+      }, this.fight)
+      clearTimeout(timeout)
+    } else {
+      console.log('no enemy attack and defence')
+    }
+    if(this.state.view === 'waiting'){
+      timeout = setTimeout(this.check_for_ready, 800)
+    } else {
+      console.log('view not waiting')
+    }
+  }
 
   render() {
     return (
@@ -676,6 +519,7 @@ class App extends Component {
         <MyDefence
           my_defence = {this.state.my_defence}
           get_hand_position={this.get_hand_position}
+          animate_my_defence={this.state.animate_my_defence}
         />
         <MyMove
           my_attack={this.state.my_attack}
@@ -685,6 +529,7 @@ class App extends Component {
         <EnemyMove
           get_hand_position={this.get_hand_position}
           enemy_attack={this.state.enemy_attack}
+          animate_enemy_move={this.state.animate_enemy_move}
         />
         <EnemyDefence
           enemy_defence = {this.state.enemy_defence}
@@ -705,6 +550,7 @@ class App extends Component {
         />
         <CharSelect
           view={this.state.view}
+          my_id={this.state.my_id}
           start={this.start}
         />
         <Display

@@ -25,7 +25,6 @@ class Enemy extends Component {
         this.setY();
     }
     componentWillUpdate = (nextProps, nextState) => {
-        console.log('C W U, ' + nextProps.animate_enemy)
         if (this.props.animate_enemy !== nextProps.animate_enemy) {
             console.log('props changed1')
             switch(nextProps.animate_enemy){
@@ -36,9 +35,8 @@ class Enemy extends Component {
                 case "stop_walking": this.stop_walking(); break;
                 case "attack": this.attack(); break;
                 case "return": this.return(); break;
+                case "returned": this.returned(); break;
             }
-        } else {
-            console.log('no change in props')
         }
     }
     approach = () => {
@@ -52,6 +50,11 @@ class Enemy extends Component {
       this.enemy().style.transform = 'scale(2.9) scaleX(-1)';
       
     }
+    returned = () => {
+        this.stop_walking();
+        this.enemy().style.transform = "scale(2.9)";
+        this.show_damage();
+    }
     attack = () => {
         const { names } = this.props;
         this.enemy().style.backgroundPositionX = names.pre_attack
@@ -64,7 +67,7 @@ class Enemy extends Component {
         let { names } = this.props;  
         if (this.props.enemy_stats.hp > 1){
             this.enemy().style.backgroundPositionX = names.standing;
-          } else if (this.state.my_stats.hp <= 1){
+          } else if (this.props.enemy_stats.hp <= 1){
             this.enemy().style.backgroundPositionX = names.hurt;
           } 
     }

@@ -27,8 +27,8 @@ class MyDefence extends Component {
     }
 
     componentWillUpdate = (nextProps, nextState) => {
-        if (this.props.animate_enemy_defence !== nextProps.animate_enemy_defence) {
-            switch (nextProps.animate_enemy_defence) {
+        if (this.props.animate_my_defence !== nextProps.animate_my_defence) {
+            switch (nextProps.animate_my_defence) {
                 case 'success': this.success(); break;
                 case 'failure': this.failure(); break;
                 case 'reset': this.reset(); break;

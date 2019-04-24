@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 class EnemyMove extends Component{
     reset = () => {
         let enemy_move = document.getElementById('enemy_move');
+        
         enemy_move.style.height = "0px";
         enemy_move.style.width = "0px";
         enemy_move.style.opacity = "1";
@@ -20,7 +21,7 @@ class EnemyMove extends Component{
     }
     componentWillUpdate = (nextProps, nextState) => {
         if (this.props.animate_enemy_move !== nextProps.animate_enemy_move) {
-            switch (nextProps.animate_my_move){
+            switch (nextProps.animate_enemy_move){
                 case 'execute': this.execute(); break;
                 case 'reset': this.reset(); break;
             }

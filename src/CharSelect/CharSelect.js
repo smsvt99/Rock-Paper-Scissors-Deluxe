@@ -2,12 +2,14 @@ import React, {Component} from 'react'
 // import { clearInterval } from 'timers';
 
 class CharSelect extends Component{
-    state = {
+    state = { 
         characters : [1,2,3,4,5,6],
         character_index: 0,
         name: '',
         interval: null,
-        listener: null
+        listener: null,
+        page: 1,
+        opponent_id: ''
     }
     cycle_index_down = (number) => {
         if (number === 0){
@@ -43,7 +45,7 @@ class CharSelect extends Component{
         characters[this.state.character_index].classList.add('walking')
     }
     walk = () => {
-        if (this.props.view === 'char_select'){
+        if (this.props.view === 'char_select' && this.state.page === 1){
         function toggle(element){
                 if (element.style.backgroundPositionX === '-30px'){
                     element.style.backgroundPositionX = '0px';
@@ -59,6 +61,7 @@ class CharSelect extends Component{
         this.setState({
             interval : setInterval(this.walk, 110)
         }) 
+
         this.setState({
             listener: window.addEventListener('keydown', (e)=>{
                 switch(e.key){
@@ -73,7 +76,7 @@ class CharSelect extends Component{
         })
     }
     componentDidUpdate = () => {
-        if (this.props.view === 'char_select'){
+        if (this.props.view === 'char_select' && this.state.page === 1){
             this.point();
         }
     }
@@ -86,9 +89,20 @@ class CharSelect extends Component{
             name: e.target.value
         })
     }
+    handle_change2 = (e) => {
+        this.setState({
+            opponent_id: e.target.value
+        })
+    }
+    next = () => {
+        this.setState({
+            page : 2
+        })
+    }
 
     render(){
     if (this.props.view === 'char_select'){
+        if(this.state.page === 1){
         return (
             <div>
             <div id="char_select">
@@ -116,12 +130,37 @@ class CharSelect extends Component{
                 id="name" 
                 type="text">
             </input>
-            <div 
-            onClick={()=>{this.props.start(this.state.characters[this.state.character_index], this.state.name)}} id="start">Fight!</div>
+            <div id="next" onClick={this.next}>
+                Next 
+            </div>
             </div>
             <div id="screen"></div>
             </div>
         )
+    } else if (this.state.page === 2){
+        return (
+            <div>
+            <div id="char_select">
+           
+            <p>Your ID is:</p>
+            <p id="id">{this.props.my_id}</p>
+            <p>Enter Opponent's ID:</p>
+            <input 
+                value={this.state.opponent_id} 
+                onChange={this.handle_change2} 
+                id="opponent_id" 
+                type="text">
+            </input>
+            <p id="tip">TIP: leave this blank to play against the bot, or open this page in another browser to play both characters yourself!</p>
+            <div 
+            onClick={()=>{this.props.start(this.state.characters[this.state.character_index], this.state.name, this.state.opponent_id)}} id="start">Fight!</div>
+            </div>
+            <div id="screen"></div>
+            </div>
+        )
+
+        }
+    
     } else {
         return null
     }
