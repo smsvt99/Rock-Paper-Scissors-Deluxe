@@ -115,6 +115,11 @@ class App extends Component {
       my_attack: this.state.choices[this.state.choices_index]
     })
   }
+  set_choices_index = (num) =>{
+    this.setState({
+      choices_index : (num)
+    })
+  }
   set_defence = () => {
     this.setState({
       my_defence: this.state.choices[this.state.choices_index]
@@ -460,7 +465,7 @@ class App extends Component {
       display_text: "Select Attack",
       single_player : single_player
     })
-  }, 2500)
+  }, 3000)
 }
 
   get_hand_position = (choice) => {
@@ -485,8 +490,6 @@ class App extends Component {
         console.log('something went wrong')
     }
     return style;
-    // my_move.style.opacity = "0";
-    // my_move.style.left = '75%';
   }
   send_initial_info = () => {
     this.socket.emit('initial_info', {
@@ -557,6 +560,10 @@ class App extends Component {
           display_text={this.state.display_text}
         />
         <Menu
+          set_choices_index = {this.set_choices_index}
+          cycle_index_up={this.cycle_index_up}
+          cycle_index_down={this.cycle_index_down}
+          handle_enter={this.handle_enter}
           my_stats={this.state.my_stats}
           choices={this.state.choices}
           choices_index={this.state.choices_index}

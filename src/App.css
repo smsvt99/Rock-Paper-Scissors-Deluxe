@@ -26,6 +26,7 @@ body{
   font-family: 'Press Start 2P', cursive;
   padding: 0;
 }
+
 #hp{
   margin-left: 100px;
 }
@@ -107,12 +108,14 @@ body{
   border-radius: 10px;
   font-family: 'Press Start 2P', cursive;
   color: white;
-  width: 80%;
-  height: 80%;
-  top: 10%;
-  left: 10%;
+  min-width: 80%;
+  height: 70%;
+  top: 6%;
+  bottom: 6%;
+  left: 6%;
+  right: 6%;
   font-size: 25px;
-  padding: 25px;
+  padding: 2%;
   position: absolute;
   z-index: 1;
 }
@@ -148,7 +151,7 @@ input:focus{
   background-color: black;
   border: 2px solid white;
   text-align: center;
-  display: block;
+  /* display: block; */
   color: white;
   font-family: 'Press Start 2P', cursive;
   padding: 10px;
@@ -165,6 +168,13 @@ input:focus{
   width: 75%;
   margin: 4% auto;
 }
+.char_container{
+  display: flex;
+  justify-content: space-around;
+  width: 75%;
+  margin: 4% auto;
+}
+
 .char_choice{
   height: 33px;
   width: 33px;
@@ -279,4 +289,150 @@ input:focus{
 }
 #id{
   text-align: center;
+  color: red;
 }
+.arrow{
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-bottom: 40px solid transparent;
+  border-top: 40px solid transparent;
+  margin: 20px 40px 10px 40px;
+  display: none;
+}
+.left-arrow{
+  border-right: 80px solid white;
+}
+.right-arrow{
+  border-left: 80px solid white;
+}
+.down-arrow{
+  border-top: 40px solid white;
+  margin: 0;
+  position: relative;
+  top: 20px;
+
+}
+.up-arrow{
+  border-bottom: 40px solid white;
+  margin: 0;
+  position: relative;
+  top: -20px;
+
+}
+#controls{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 14%;
+  width: 98%;
+  position: absolute;
+  bottom: -2%;
+  left: 0;
+  background: linear-gradient(90deg,dimgrey, grey, dimgrey);
+  /* border-top: 8px double black;
+  border-bottom: 8px double black; */
+  border: 8px double black;
+  padding-bottom: 15px;
+  display: none;
+}
+#select{
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  background: radial-gradient( red, orangered);
+  text-align: center;
+  line-height: 80px;
+  font-size: 35px;
+  box-shadow: 5px 5px 5px;
+}
+
+
+/* smartphones, iPhone, portrait 480x320 phones */
+/* THESE STYLES FROM IPHONE 6,7,8 PLUS */
+
+@media (max-width:600px)  {
+  .arrow{
+    display: block;
+  }
+  #controls{
+    display: flex;
+  }
+  .char_choice{
+    transform: scale(2.4)
+  } 
+  #char_select p{
+    font-size: 22px;
+  } 
+  #start, #next{
+    padding: 15px 10px;
+  }
+  #tip{
+    font-size: 16px !important;
+    line-height: 17px !important;
+    margin: 40px 0;
+  }
+  body{
+    background-size: 200% auto;
+    /* background-position: -200px -1100px; */
+    background-position: -100px -30px;
+    background-repeat: no-repeat;
+  }
+  #menu{
+    font-size: 16px;
+    height: 20%;
+    bottom: 16%;
+  }
+  .menu_item{
+    margin: 15px 5px;
+  }
+  .menu_item .pointer{
+    margin: 0;
+  }
+  .pointer{
+    left: 0;
+    /* top: 12px; */
+    width: 30px;
+    height: 17px;
+    background-position: -78px -78.5px;
+    background-size: 180px;
+    /* animation: point; */
+  }
+  @keyframes point{
+    0%{
+      left: 0px;
+    }
+    50%{
+     left: -10px;
+    }
+    100%{
+      left: 0px;
+    }
+  }
+  #hp{
+    margin-left: 5%;
+  }
+  .container{
+    width: 30%;
+  }
+
+}
+/* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+@media (min-width:481px)  { 
+
+ }
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+@media (min-width:641px)  {
+
+ }
+ /* tablet, landscape iPad, lo-res laptops ands desktops */
+@media (min-width:961px)  {  
+
+}
+/* big landscape tablets, laptops, and desktops */
+@media (min-width:1025px) {  
+
+}
+/* hi-res laptops and desktops */
+@media (min-width:1281px) { 
+
+ }
