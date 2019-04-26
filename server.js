@@ -9,6 +9,12 @@ const cors = require('cors');
 var allowedOrigins = "https://infinite-castle-27081.herokuapp.com/:*";
 const io = socketIO(server, {origins:allowedOrigins})
 
+// io.configure(function () { 
+    // io.set("transports", ["xhr-polling"]); 
+    // io.set("polling duration", 10); 
+//   }); 
+  
+
 const port = process.env.PORT || 3000;
 
 
