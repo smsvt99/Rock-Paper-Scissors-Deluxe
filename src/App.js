@@ -65,7 +65,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.socket = socketIO(this.state.endpoint);
+    this.socket = socketIO(window.location.hostname);
 
     this.socket.on('socket_id', (data) => {
       this.setState({
