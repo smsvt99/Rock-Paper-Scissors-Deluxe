@@ -5,13 +5,13 @@ const server = http.createServer(app);
 
 const path = require('path');
 const socketIO = require('socket.io');
-// const cors = require('cors');
+const cors = require('cors');
 const io = socketIO(server)
 
 const port = process.env.PORT || 3000;
 
 
-// app.use(cors());
+app.use(cors());
 
 app.use(express.static(path.join(__dirname, 'build')));
 
