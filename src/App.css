@@ -3,8 +3,8 @@
   src: url('./PressStart2P-Regular.ttf')
 }
 body{
-  overflow-y: hidden;
-  overflow-x: hidden;
+  /* overflow-y: hidden;
+  overflow-x: hidden; */
   background-image: url('./earthclock.jpg');
   background-repeat: no-repeat;
   /* background-size: cover; */
@@ -346,7 +346,12 @@ input:focus{
   box-shadow: 5px 5px 5px;
 }
 
-
+@media (max-width:1450px)  {
+  body{
+    background-size: 150% auto;
+    background-position: 0px -600px;
+  }
+}
 @media (max-width:1400px)  {}
 @media (max-width:1350px)  {}
 
@@ -371,7 +376,7 @@ input:focus{
     margin-bottom: 10%;
   } */
   #char_select p{
-    font-size: 30px;
+    font-size: 22px;
   }
   #char_select{
     height: 85%;
@@ -386,12 +391,13 @@ input:focus{
     padding: 20px;
   }
   #tip{
-    line-height: 40px !important;
+    font-size: 16px;
+    line-height: 40px;
   }
   #menu{
     /* font-size: 16px; */
-    height: 20%;
-    bottom: 14%;
+    /* height: 20%; */
+    /* bottom: 14%; */
     width: 100%;
   }
   .menu_item{
@@ -423,6 +429,15 @@ input:focus{
 @media (max-width:1200px)  {}
 
 /* ipad bro */
+@media (max-width:1050px){
+  #controls{
+    display: flex;
+    width: 99%;
+  }
+  .arrow{
+    display: block;
+  }
+}
 @media (max-width:1050px and orientation: landscape)  {
   .arrow{
     display: block;
@@ -435,20 +450,17 @@ input:focus{
     background-size: 200% auto;
     background-position: -100px -400px;
   }
-  menu{
-    bottom: 0;
-  }
 }
 @media (max-width:1000px)  {}
 @media (max-width:950px)  {}
 @media (max-width:900px)  {}
 @media (max-width:850px)  {}
 
-/* ipad */
-@media (max-width:800px)  {
+/* kindle fire */
+/* nexus 10 */
+@media (max-width:800px){
   body{
-    background-size: 200% auto;
-    background-position: -100px -300px;
+    background-position: -100px -210px;
   }
   .menu_item{
     font-size: 25px
@@ -475,9 +487,14 @@ input:focus{
   }
 }
 
-@media (max-width:750px)  {}
-@media (max-width:700px)  {}
-@media (max-width:650px)  {}
+/* ipad */
+@media (max-width:790px)  {
+  body{
+    background-size: 200% auto;
+    background-position: -100px -300px;
+  }
+  
+}
 
 /* THESE STYLES FROM IPHONE 6,7,8 PLUS */
 /* @media (max-width:600px)  { */
@@ -493,8 +510,8 @@ input:focus{
     padding: 15px 10px;
   }
   #tip{
-    font-size: 16px !important;
-    line-height: 17px !important;
+    font-size: 16px;
+    line-height: 27px;
     margin: 40px 0;
   }
   body{
@@ -538,8 +555,19 @@ input:focus{
 
 }
 
-@media (max-width:550px){
-
+@media (max-width:600px){
+  .pointer{
+    margin: 15px 0px;
+    height: 25px;
+  }
+  .numbers{
+    margin: 15px 1px;
+    font-size: 22px;
+  }
+  #hp{
+    margin-left: 3%;
+    margin-right: 3px;
+  }
 }
 @media (max-width:550px){
   .menu_item{
@@ -607,6 +635,12 @@ input:focus{
     background-position: -200px -30px;
     background-size: 220% auto; 
   }
+  .char_choice{
+    transform: scale(2);
+  }
+  #display{
+    font-size: 20px;
+  }
 }
 /* iphone 5/SE */
 @media (max-width:360px){
@@ -639,9 +673,6 @@ input:focus{
     background-position: -63px -60px;
     background-size: 140px;
   }
-  #display{
-    font-size: 20px;
-  }
   @keyframes point{
     0%{
       left: 0px;
@@ -654,3 +685,37 @@ input:focus{
     }
   }
 }
+
+@media (max-width:320px){
+  #tip{
+    font-size: 12px;
+    line-height: 18px;
+    margin: 10px 0;
+  }
+  #display{
+    font-size: 16px;
+  }
+  #controls{
+    /* height: 14%; */
+  }
+  #menu{
+    bottom: 18%;
+    height: 16%;
+  }
+  #bar{
+    height: 15px;
+  }
+  #health{
+    height: 15px;
+  }
+  #char_select p{
+    margin: 8px 0;
+  }
+  #select{
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+  }
+}
+
+/* HEIGHT THINGS */
