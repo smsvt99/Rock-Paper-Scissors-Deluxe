@@ -58,14 +58,14 @@ class App extends Component {
       hurt : "-163px",
       dead : "-253px",
     },
-    endpoint: 'infinite-castle-27081.herokuapp.com',
+    endpoint: 'https://infinite-castle-27081.herokuapp.com/',
     my_id : null,
     enemy_id : null,
     single_player : false,
   }
 
   componentDidMount() {
-    this.socket = socketIO(window.location.hostname);
+    this.socket = socketIO(this.endpoint);
 
     this.socket.on('socket_id', (data) => {
       this.setState({
