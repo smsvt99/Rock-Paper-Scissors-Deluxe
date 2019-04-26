@@ -153,8 +153,7 @@ class CharSelect extends Component{
             <div id="char_select">
            
             <p id="your">Your ID is:</p>
-            <p id="id">ks dfksjd</p>
-            {/* <p id="id">{this.props.my_id}</p> */}
+            <p id="id">{this.props.my_id}</p>
             <p>Enter Opponent's ID:</p>
             <input 
                 value={this.state.opponent_id} 
