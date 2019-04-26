@@ -124,8 +124,14 @@ class CharSelect extends Component{
                 <div id="hole_6" className="carrot_hole"></div>
             </div>
             <div class="container">
-                <div class="arrow left-arrow"></div>
-                <div class="arrow right-arrow"></div>
+                <div 
+                    onClick={()=>{this.cycle_index_down(this.state.character_index)}} 
+                    class="arrow left-arrow">
+                </div>
+                <div
+                    onClick={()=>{this.cycle_index_up(this.state.character_index)}} 
+                    class="arrow right-arrow">
+                </div>
             </div>
             <p>Name Your Character</p>
             <input 
