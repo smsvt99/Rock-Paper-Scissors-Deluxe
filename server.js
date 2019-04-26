@@ -6,7 +6,8 @@ const server = http.createServer(app);
 const path = require('path');
 const socketIO = require('socket.io');
 const cors = require('cors');
-const io = socketIO(server)
+var allowedOrigins = "https://infinite-castle-27081.herokuapp.com/:*";
+const io = socketIO(server, {origins:allowedOrigins})
 
 const port = process.env.PORT || 3000;
 
