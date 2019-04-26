@@ -286,10 +286,12 @@ input:focus{
   color: yellow;
   font-size: 18px;
   line-height: 25px;
+  text-align: center;
 }
 #id{
   text-align: center;
   color: red;
+  word-wrap: break-word;
 }
 .arrow{
   border-left: 40px solid transparent;
@@ -568,6 +570,11 @@ input:focus{
     margin-left: 3%;
     margin-right: 3px;
   }
+  #tip{
+    font-size: 14px;
+    line-height: 24px;
+    margin: 40px 0;
+  }
 }
 @media (max-width:550px){
   .menu_item{
@@ -641,6 +648,11 @@ input:focus{
   #display{
     font-size: 20px;
   }
+}
+@media (max-width:400px){
+ #char_select #tip{
+   font-size: 14px;
+ }
 }
 /* iphone 5/SE */
 @media (max-width:360px){
@@ -717,5 +729,3 @@ input:focus{
     line-height: 60px;
   }
 }
-
-/* HEIGHT THINGS */

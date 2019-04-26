@@ -6,7 +6,7 @@ const server = http.createServer(app);
 const path = require('path');
 const socketIO = require('socket.io');
 const cors = require('cors');
-var allowedOrigins = "https://infinite-castle-27081.herokuapp.com/:*";
+// var allowedOrigins = "https://infinite-castle-27081.herokuapp.com/:*";
 const io = socketIO(server);
 // const io = socketIO(server, {origins:allowedOrigins}).listen(server)
 
@@ -22,7 +22,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 
 app.use(express.static(path.join(__dirname, 'build')));
-app.use(express.static(path.join('public')))
+// app.use(express.static(path.join('public')))
 
 app.get('/', (req, res)=>{
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
@@ -33,9 +33,7 @@ server.listen(port, () => console.log(`Listening on port ${port}`))
 io.on('connection', socket => {
     console.log('new connection: ' + socket.id);
     
-    setTimeout(()=>{
-        io.to(socket.id).emit('socket_id', socket.id);
-    }, 2000)
+    io.to(socket.id).emit('socket_id', socket.id);
     
     socket.on('initial_info', info =>{
         console.log(info)
