@@ -33,7 +33,9 @@ server.listen(port, () => console.log(`Listening on port ${port}`))
 io.on('connection', socket => {
     console.log('new connection: ' + socket.id);
     
-    io.to(socket.id).emit('socket_id', socket.id);
+    setTimeout(()=>{
+        io.to(socket.id).emit('socket_id', socket.id);
+    }, 2000)
     
     socket.on('initial_info', info =>{
         console.log(info)
