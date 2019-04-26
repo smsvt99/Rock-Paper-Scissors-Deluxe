@@ -106,7 +106,7 @@ class CharSelect extends Component{
         return (
             <div>
             <div id="char_select">
-            <p>Choose Your Character</p>
+            <p id="choose">Choose Your Character</p>
             <div className="char_container">
                 <div id="char_1" className="char_choice walking"></div>
                 <div id="char_2" className="char_choice"></div>
@@ -123,6 +123,10 @@ class CharSelect extends Component{
                 <div id="hole_5" className="carrot_hole"></div>
                 <div id="hole_6" className="carrot_hole"></div>
             </div>
+            <div class="container">
+                <div class="arrow left-arrow"></div>
+                <div class="arrow right-arrow"></div>
+            </div>
             <p>Name Your Character</p>
             <input 
                 value={this.state.name} 
@@ -130,10 +134,6 @@ class CharSelect extends Component{
                 id="name" 
                 type="text">
             </input>
-            <div class="container">
-                <div class="arrow left-arrow"></div>
-                <div class="arrow right-arrow"></div>
-            </div>
             <div id="next" onClick={this.next}>
                 Next 
             </div>
@@ -146,7 +146,7 @@ class CharSelect extends Component{
             <div>
             <div id="char_select">
            
-            <p>Your ID is:</p>
+            <p id="your">Your ID is:</p>
             <p id="id">ks dfksjd</p>
             {/* <p id="id">{this.props.my_id}</p> */}
             <p>Enter Opponent's ID:</p>
