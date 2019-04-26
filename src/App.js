@@ -58,7 +58,7 @@ class App extends Component {
       hurt : "-163px",
       dead : "-253px",
     },
-    endpoint: 'https://infinite-castle-27081.herokuapp.com/',
+    endpoint: 'https://infinite-castle-27081.herokuapp.com/node-modules/',
     my_id : null,
     enemy_id : null,
     single_player : false,
