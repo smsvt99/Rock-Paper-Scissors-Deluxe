@@ -6,9 +6,9 @@ const server = http.createServer(app);
 const path = require('path');
 const socketIO = require('socket.io');
 const cors = require('cors');
-// var allowedOrigins = "https://infinite-castle-27081.herokuapp.com/:*";
+var allowedOrigins = "https://infinite-castle-27081.herokuapp.com/:*";
 const io = socketIO(server);
-// const io = socketIO(server, {origins:allowedOrigins}).listen(server)
+const io = socketIO(server, {origins:allowedOrigins}).listen(server)
 
 // io.configure(function () { 
     // io.set("transports", ["xhr-polling"]); 
