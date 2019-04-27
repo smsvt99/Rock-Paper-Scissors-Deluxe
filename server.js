@@ -31,12 +31,12 @@ io.on('connect', socket => {
     
     io.to(socket.id).emit('socket_id', socket.id)
     
-    io.on('initial_info', info =>{
+    socket.on('initial_info', info =>{
         console.log(info)
         let target = info.enemy_id;
         io.to(target).emit('initial_info_from_server', info)
     })
-    io.on('moves_from_client', info =>{
+    socket.on('moves_from_client', info =>{
         console.log(info)
         let target = info.enemy_id;
         io.to(target).emit('moves_from_server', info)
