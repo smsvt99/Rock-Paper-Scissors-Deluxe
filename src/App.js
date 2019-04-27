@@ -65,9 +65,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.socket = socketIO(this.endpoint, {
-      transports: ['websocket']
-    });
+    this.socket = socketIO(this.endpoint);
+      
+    //   , {
+    //   transports: ['websocket']
+    // });
 
     this.socket.on('socket_id', (data) => {
       this.setState({
