@@ -76,6 +76,7 @@ class App extends Component {
     })
 
     this.socket.on('initial_info_from_server', data => {
+      console.log("Got initial info from server: " + data)
       this.setState({
         enemy_character: data.character,
         enemy_name: data.name
@@ -83,6 +84,7 @@ class App extends Component {
     })
 
     this.socket.on('moves_from_server', data => {
+      console.log("Got moves from server: " + data)
       this.setState({
         enemy_attack : data.attack,
         enemy_defence : data.defence
