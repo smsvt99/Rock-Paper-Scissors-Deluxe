@@ -71,7 +71,8 @@ class App extends Component {
     //   transports: ['websocket']
     // });
 
-    this.socket.on('socket_id', (data) => {
+    this.socket.on('socket_id', data => {
+      console.log('reconnected?')
       this.setState({
         my_id: data
       })
