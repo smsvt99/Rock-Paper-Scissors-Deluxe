@@ -65,7 +65,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.socket = socketIO();
+    this.socket = socketIO()(80);
       
     //   , {
     //   transports: ['websocket']

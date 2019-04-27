@@ -26,32 +26,33 @@ app.get('/', (req, res)=>{
 
 server.listen(port, () => console.log(`Listening on port ${port}`))
 
-io.on('connection', socket => {
+io.on('connect', socket => {
     console.log('new connection: ' + socket.id);
     
     io.to(socket.id).emit('socket_id', socket.id)
-    // io.on('initial_info', info =>{
-    //     console.log(info)
-    //     let target = info.enemy_id;
-    //     io.to(target).emit('initial_info_from_server', info)
-    // })
-    // io.on('moves_from_client', info =>{
-    //     console.log(info)
-    //     let target = info.enemy_id;
-    //     io.to(target).emit('moves_from_server', info)
-    // })
+    
+    io.on('initial_info', info =>{
+        console.log(info)
+        let target = info.enemy_id;
+        io.to(target).emit('initial_info_from_server', info)
+    })
+    io.on('moves_from_client', info =>{
+        console.log(info)
+        let target = info.enemy_id;
+        io.to(target).emit('moves_from_server', info)
+    })
 })
 
-//socket
-io.on('initial_info', info =>{
-    console.log(info)
-    let target = info.enemy_id;
-    io.to(target).emit('initial_info_from_server', info)
-})
+// //socket
+// io.on('initial_info', info =>{
+//     console.log(info)
+//     let target = info.enemy_id;
+//     io.to(target).emit('initial_info_from_server', info)
+// })
 
-//socket
-io.on('moves_from_client', info =>{
-    console.log(info)
-    let target = info.enemy_id;
-    io.to(target).emit('moves_from_server', info)
-})
+// //socket
+// io.on('moves_from_client', info =>{
+//     console.log(info)
+//     let target = info.enemy_id;
+//     io.to(target).emit('moves_from_server', info)
+// })
