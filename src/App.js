@@ -192,7 +192,7 @@ class App extends Component {
     }
   }
 
-  handle_enter = this.handle_enter.bind(this)
+  // handle_enter = this.handle_enter.bind(this)
 
   send_moves_to_server = () => {
     this.socket.emit('moves_from_client', {
@@ -573,7 +573,7 @@ class App extends Component {
           set_choices_index = {this.set_choices_index}
           cycle_index_up={this.cycle_index_up}
           cycle_index_down={this.cycle_index_down}
-          handle_enter={this.handle_enter}
+          handle_enter={this.handle_enter.bind(this)}
           my_stats={this.state.my_stats}
           choices={this.state.choices}
           choices_index={this.state.choices_index}
