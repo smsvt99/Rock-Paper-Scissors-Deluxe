@@ -187,14 +187,22 @@ class App extends Component {
           selection: '',
           my_stats: stats_copy,
           view: 'waiting'
+        }, ()=>{
+          console.log('set my_defence as ' + this.state.my_defence)
+          this.set_text("Waiting for Opponent...")
+          if(this.state.single_player === true) this.get_enemy_move()
+          else {
+            this.send_moves_to_server();
+            this.check_for_ready();
+          }
         })
-        console.log('set my_defence as ' + this.state.my_defence)
-        this.set_text("Waiting for Opponent...")
-        if(this.state.single_player === true) this.get_enemy_move()
-        else {
-          this.send_moves_to_server();
-          this.check_for_ready();
-        }
+        // console.log('set my_defence as ' + this.state.my_defence)
+        // this.set_text("Waiting for Opponent...")
+        // if(this.state.single_player === true) this.get_enemy_move()
+        // else {
+        //   this.send_moves_to_server();
+        //   this.check_for_ready();
+        // }
       }
     }
   }
