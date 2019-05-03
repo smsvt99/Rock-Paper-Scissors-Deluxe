@@ -360,7 +360,7 @@ input:focus{
 /* this computer */
 @media (max-width:1300px)  {
   body{
-    background-size: 150% auto;
+    /* background-size: 150% auto; */
     background-position: 0px -600px;
   }
   #controls{
@@ -371,12 +371,8 @@ input:focus{
 /* ??? */
 @media (max-width:1250px)  {
   body{
-    background-size: 200% auto;
+    background-position: 0px -550px;
   }
-  /* #choose{
-    margin-top: 10%;
-    margin-bottom: 10%;
-  } */
   #char_select p{
     font-size: 22px;
   }
@@ -397,9 +393,6 @@ input:focus{
     line-height: 40px;
   }
   #menu{
-    /* font-size: 16px; */
-    /* height: 20%; */
-    /* bottom: 14%; */
     width: 100%;
   }
   .menu_item{
@@ -414,6 +407,7 @@ input:focus{
     background-size: 275px;
     background-repeat: no-repeat;
     background-position: -120px -119px;
+    margin-left: 100px;
   }
   @keyframes point{
     0%{
@@ -428,7 +422,22 @@ input:focus{
   }
 
 }
-@media (max-width:1200px)  {}
+@media (max-width:1200px)  {
+  body{
+    /* background-size: 200% auto; */
+    background-position: 0px -550px;
+
+  }
+}
+@media (max-width:1150px)  {
+
+}
+@media (max-width:1100px)  {
+  body{
+    background-size: 210% auto;
+    background-position: 0px -750px;
+  }
+}
 
 /* ipad bro */
 @media (max-width:1050px){
@@ -438,6 +447,16 @@ input:focus{
   }
   .arrow{
     display: block;
+  }
+  #menu{
+    font-size: 20px;
+    height: 20%;
+    bottom: 17%;
+  }
+  .pointer{
+    height: 20px;
+    /* width: 200px; */
+    margin-left: 150px;
   }
 }
 @media (max-width:1050px and orientation: landscape)  {
@@ -452,20 +471,39 @@ input:focus{
     background-size: 200% auto;
     background-position: -100px -400px;
   }
+  .pointer{
+    height: 20px;
+    margin-left: 150px;
+  }
 }
-@media (max-width:1000px)  {}
+@media (max-width:1000px)  {
+  body{
+    background-size: 210% auto;
+    background-position: 0px -650px;
+  }
+}
 @media (max-width:950px)  {}
-@media (max-width:900px)  {}
-@media (max-width:850px)  {}
+@media (max-width:900px)  {
+  body{
+    background-size: 200% auto;
+    background-position: -100px -500px;
+  }
+  .pointer{
+    margin-left: 50px;
+  }
+}
+@media (max-width:830px)  {
+}
 
 /* kindle fire */
 /* nexus 10 */
 @media (max-width:800px){
   body{
-    background-position: -100px -210px;
+    /* background-size: 220% auto; */
+    background-position: -100px -410px;
   }
   .menu_item{
-    font-size: 25px
+    /* font-size: 25px */
   }
   #hp{
     font-size: 25px;
@@ -488,20 +526,31 @@ input:focus{
     }
   }
 }
-
+/* kindle fire */
+@media (max-width:801px) and (orientation: portrait){
+  body{
+    background-position: -100px 1px;
+  }
+  #menu{
+    bottom: 15%;
+  }
+}
 /* ipad */
 @media (max-width:790px)  {
   body{
-    background-size: 200% auto;
-    background-position: -100px -300px;
+    /* background-size: 210% auto; */
+    background-position: -100px -400px;
   }
-  
+}
+@media(max-width: 768px) and (orientation: portrait){
+  body{
+    background-position: -100px -500px;
+  }
 }
 
 /* THESE STYLES FROM IPHONE 6,7,8 PLUS */
 /* @media (max-width:600px)  { */
-  @media (max-width:750px)  { */
-
+  @media (max-width:750px)  {
   .char_choice{
     transform: scale(2.4)
   } 
@@ -517,9 +566,9 @@ input:focus{
     margin: 40px 0;
   }
   body{
-    background-size: 200% auto;
-    background-position: -100px -30px;
-    background-repeat: no-repeat;
+    /* background-size: 200% auto; */
+    background-position: -100px -350px;
+    /* background-repeat: no-repeat; */
   }
   #menu{
     font-size: 16px;
@@ -575,8 +624,17 @@ input:focus{
     line-height: 24px;
     margin: 40px 0;
   }
+  body{
+    background-position: -100px -160px;
+    /* background-size: 220% auto;  */
+  }
 }
+
 @media (max-width:550px){
+  body{
+    background-position: -100px -160px;
+    /* background-size: 220% auto;  */
+  }
   .menu_item{
     font-size: 16px;
   }
@@ -593,19 +651,26 @@ input:focus{
     width: 20px;
     margin: 15px 0;
     background-position: -80px -78px;
+    height: 16px;
   }
   .numbers{
     margin: 15px 1px;
   }
+}
+/* nokia n9 */
+@media(min-width: 480px){
   body{
-    background-position: -200px -150px;
-    background-size: 220% auto; 
+    background-position: -100px -10px;
   }
 }
 /* iphone 6,7,8 plus */
 /* pixel 2xl */
 /* pixel 2 */
 @media (max-width:456px){
+  body{
+    background-position: -200px -150px;
+    /* background-size: 250% auto;  */
+  }
   #hp{
     margin-right: 10px;
   }
@@ -619,13 +684,9 @@ input:focus{
     font-size: 15px;
     margin: 15px 1px;
   }
-  body{
-    background-position: -200px -150px;
-    background-size: 250% auto; 
-  }
 }
 /* iphone X */
-@media (max-width:410px){
+@media (max-width:412px){
   #hp, .menu_item{
     font-size: 14px;
   }

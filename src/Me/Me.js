@@ -97,7 +97,7 @@ class Me extends Component {
                 case "returned": this.returned(); break;
                 case "get_hit": this.get_hit(); break;
             }
-        }
+        } 
     }
     setY = () => {
         let sprite = document.getElementById('me')
