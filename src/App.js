@@ -159,28 +159,22 @@ class App extends Component {
     // console.log(this.state.choices_index)
   }
   handle_enter = () => {
-    console.log('handle enter called')
     let choices = this.state.choices;
     let index = this.state.choices_index;
     let stats_copy = JSON.parse(JSON.stringify(this.state.my_stats))
 
     if (this.state.view === 'select' && this.state.selection === 'attack') {
-      console.log('view is select, selection is attack')
       if (this.state.my_stats.pp[choices[index]] > 0) {
-        console.log('enough pp for attack')
         stats_copy.pp[choices[index]]--;
         this.setState({
           my_attack: choices[index],
           selection: 'defence',
           my_stats: stats_copy
         })
-        console.log('my_attack set as ' + this.state.my_attack)
         this.set_text("Select Defence")
       }
     } else if (this.state.view === 'select' && this.state.selection === 'defence') {
-      console.log('view is select, selection is defence')
       if (this.state.my_stats.pp[choices[index]] > 0) {
-        console.log('enough pp for defence')
         stats_copy.pp[choices[index]]--;
         this.setState({
           my_defence: choices[index],
@@ -188,7 +182,6 @@ class App extends Component {
           my_stats: stats_copy,
           view: 'waiting'
         }, ()=>{
-          console.log('set my_defence as ' + this.state.my_defence)
           this.set_text("Waiting for Opponent...")
           if(this.state.single_player === true) this.get_enemy_move()
           else {
@@ -196,13 +189,6 @@ class App extends Component {
             this.check_for_ready();
           }
         })
-        // console.log('set my_defence as ' + this.state.my_defence)
-        // this.set_text("Waiting for Opponent...")
-        // if(this.state.single_player === true) this.get_enemy_move()
-        // else {
-        //   this.send_moves_to_server();
-        //   this.check_for_ready();
-        // }
       }
     }
   }
@@ -214,7 +200,6 @@ class App extends Component {
       defence: this.state.my_defence,
       enemy_id : this.state.enemy_id
     })
-    console.log('sent')
   }
   set_text = (my_text) => {
     this.setState({
