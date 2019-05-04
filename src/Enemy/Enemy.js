@@ -17,6 +17,7 @@ class Enemy extends Component {
         })
     }
     stop_walking = () => {
+        console.log('enemy stop walking')
         const {names} = this.props;
         clearInterval(this.state.enemy_interval);
         this.enemy().style.backgroundPositionX = names.standing;
@@ -26,7 +27,7 @@ class Enemy extends Component {
     }
     componentWillUpdate = (nextProps, nextState) => {
         if (this.props.animate_enemy !== nextProps.animate_enemy) {
-            console.log('props changed1')
+            // console.log('props changed1')
             switch(nextProps.animate_enemy){
                 case "show_damage": this.show_damage(); break;
                 case "get_hit": this.get_hit(); break;
@@ -51,6 +52,7 @@ class Enemy extends Component {
       
     }
     returned = () => {
+        console.log('enemy returned')
         this.stop_walking();
         this.enemy().style.transform = "scale(2.9)";
         this.show_damage();

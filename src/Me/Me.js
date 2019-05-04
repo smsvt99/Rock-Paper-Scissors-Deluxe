@@ -25,6 +25,7 @@ class Me extends Component {
         })
     }
     stop_walking(){
+        console.log('me stop walking')
         const {names} = this.props;
         clearInterval(this.state.my_interval);
         this.me().style.backgroundPositionX = names.standing;
@@ -76,6 +77,7 @@ class Me extends Component {
         this.walk();
     }
     returned = () => {
+        console.log('me returned')
       this.stop_walking();
       this.me().style.transform = "scale(2.9) scaleX(-1)"
       this.show_damage();

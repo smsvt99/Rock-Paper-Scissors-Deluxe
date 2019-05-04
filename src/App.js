@@ -72,7 +72,7 @@ class App extends Component {
     // });
 
     this.socket.on('socket_id', data => {
-      console.log('reconnected?')
+      // console.log('reconnected?')
       this.setState({
         my_id: data
       })
@@ -247,6 +247,7 @@ class App extends Component {
     }, 1000)
 
     setTimeout(() => {
+      console.log('app calls me stop walking')
       this.setState({
         animate_me : 'stop walking'
       })
@@ -300,6 +301,7 @@ class App extends Component {
     }, 3600)
 
     setTimeout(() => {
+      console.log('app calls me returned')
       this.setState({
         animate_me: 'returned'
       })
@@ -314,6 +316,7 @@ class App extends Component {
     }, 6000)
 
     setTimeout(() => {
+      console.log('app calls enemy stop walking')
       this.setState({
         animate_enemy : 'stop_walking'
       })
@@ -367,6 +370,7 @@ class App extends Component {
     }, 9000)
 
        setTimeout(() => {
+        console.log('app calls enemy returned')
          this.setState({
            animate_enemy: 'returned'
          })
@@ -405,6 +409,7 @@ class App extends Component {
     return this.block_successful(this.state.my_attack, this.state.enemy_defence);
   }
   take_damage = (person) => {
+    console.log('take damage')
     //'me' or 'enemy'
     let stats;
     let key;
@@ -415,8 +420,12 @@ class App extends Component {
       stats = this.state.enemy_stats
       key = 'enemy_stats'
     }
+    console.log('before set state: ' + key + ' ' + stats.hp)
+
     let stats_copy = JSON.parse(JSON.stringify(stats))
+    console.log('copy before subtraction: ' + stats_copy.hp)
     stats_copy.hp--
+    console.log('copy after subtraction: ' + stats_copy.hp)
     this.setState({
       [key]: stats_copy
     })
@@ -514,8 +523,10 @@ class App extends Component {
     if (this.state.enemy_attack && this.state.enemy_defence){
       this.setState({
         view: 'animation'
-      }, this.fight)
-      clearTimeout(timeout)
+      }, ()=>{
+        this.fight()
+        clearTimeout(timeout)
+      })
     } else {
       console.log('no enemy attack and defence')
     }
