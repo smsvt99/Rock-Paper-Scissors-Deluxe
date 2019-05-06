@@ -10,6 +10,7 @@ import MyMove from './MyMove/MyMove'
 import EnemyMove from './EnemyMove/EnemyMove'
 import EnemyDefence from './EnemyDefence/EnemyDefence'
 import MyDefence from './MyDefence/MyDefence'
+import Background from './Background/Background'
 
 import socketIO from 'socket.io-client'
 
@@ -540,6 +541,7 @@ class App extends Component {
   render() {
     return (
       <div id="wrapper">
+        <Background/>
         <MyDefence
           my_defence = {this.state.my_defence}
           get_hand_position={this.get_hand_position}

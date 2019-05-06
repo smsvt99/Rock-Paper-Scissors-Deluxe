@@ -8,10 +8,6 @@ self.__precacheManifest = [
     "url": "/static/media/hands.71356969.png"
   },
   {
-    "revision": "bc6c92384fa84b1c3f85f25474ae04d5",
-    "url": "/static/media/earthclock.bc6c9238.jpg"
-  },
-  {
     "revision": "81c0aae9bb2eb54bf8fe07e1b68d829e",
     "url": "/static/media/PressStart2P-Regular.81c0aae9.ttf"
   },
@@ -20,19 +16,19 @@ self.__precacheManifest = [
     "url": "/static/js/runtime~main.a8a9905a.js"
   },
   {
-    "revision": "793f595e945529d155ec",
-    "url": "/static/js/main.5b6b78cd.chunk.js"
+    "revision": "f36fc40dab79c20d3196",
+    "url": "/static/js/main.c12919a0.chunk.js"
   },
   {
     "revision": "dbf9507652d3255df246",
     "url": "/static/js/2.dec803f5.chunk.js"
   },
   {
-    "revision": "793f595e945529d155ec",
-    "url": "/static/css/main.0c54b322.chunk.css"
+    "revision": "f36fc40dab79c20d3196",
+    "url": "/static/css/main.a7c08bfa.chunk.css"
   },
   {
-    "revision": "3e93e5aae57b9acc3d9ff894b075df1c",
+    "revision": "df74f41a44d8d62d1041df9347050ad9",
     "url": "/index.html"
   }
 ];
